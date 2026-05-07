@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background: #000; text-align: center; }
+        canvas { background: #111; width: 480px; height: 320px; }
+    </style>
+</head>
+<body>
+    <canvas id="screen"></canvas><br>
+    <button onclick="start()">START</button>
+
+    <script src="js/util.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/arm.js"></script>
+    <script src="js/thumb.js"></script>
+    <script src="js/mmu.js"></script>
+    <script src="js/io.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/video.js"></script>
+    <script src="js/video/software.js"></script>
+    <script src="js/irq.js"></script>
+    <script src="js/keypad.js"></script>
+    <script src="js/sio.js"></script>
+    <script src="js/savedata.js"></script>
+    <script src="js/gpio.js"></script>
+    <script src="js/gpgpio.js"></script>
+    <script src="js/rtc.js"></script>
+
+    <script>
+        var gba = new GameBoyAdvance();
+        gba.setCanvas(document.getElementById('screen'));
+
+        function start() {
+            gba.loadRomFromFile('emerald.gba', (res) => {
+                if (res) gba.runAnimation();
+                else alert("Missing emerald.gba");
+            });
+        }
+
+        window.onkeydown = (e) => gba.keypad.keydown(e.keyCode);
+        window.onkeyup = (e) => gba.keypad.keyup(e.keyCode);
+    </script>
+</body>
+</html>
